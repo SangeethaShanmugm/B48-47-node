@@ -104,10 +104,16 @@ app.get('/', (req, res) => {
 // /movies?rating=8 => filter by rating
 
 app.get('/movies', (req, res) => {
-    const { language } = req.query
+    const { language, rating } = req.query
     console.log(req.query, language)
-    const movie = movies.filter((mv) => mv.language === language)
-    res.send(movie)
+    let filteredMovies = movies //copy by reference => same address
+    if (language) {
+        filteredMovies = filteredMovies.filter((mv) => mv.language === language)//different address
+    }
+    if (rating) {
+        filteredMovies = filteredMovies.filter((mv) => mv.rating === +rating)//different address
+    }
+    res.send(filteredMovies);
 })
 
 //get movies by id

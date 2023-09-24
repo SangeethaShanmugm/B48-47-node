@@ -11,7 +11,8 @@ const movies = [
         rating: 8.8,
         summary:
             "RRR is an upcoming Indian Telugu-language period action drama film directed by S. S. Rajamouli, and produced by D. V. V. Danayya of DVV Entertainments.",
-        trailer: "https://www.youtube.com/embed/f_vbAtFSEc0"
+        trailer: "https://www.youtube.com/embed/f_vbAtFSEc0",
+        language: "English",
     },
     {
         id: "101",
@@ -21,7 +22,8 @@ const movies = [
         rating: 7,
         summary:
             "With the world now aware that he is Iron Man, billionaire inventor Tony Stark (Robert Downey Jr.) faces pressure from all sides to share his technology with the military. He is reluctant to divulge the secrets of his armored suit, fearing the information will fall into the wrong hands. With Pepper Potts (Gwyneth Paltrow) and Rhodes (Don Cheadle) by his side, Tony must forge new alliances and confront a powerful new enemy.",
-        trailer: "https://www.youtube.com/embed/wKtcmiifycU"
+        trailer: "https://www.youtube.com/embed/wKtcmiifycU",
+        language: "English",
     },
     {
         id: "102",
@@ -31,7 +33,8 @@ const movies = [
         rating: 8.1,
         summary:
             "A hunter's life takes a drastic turn when he discovers two million dollars while strolling through the aftermath of a drug deal. He is then pursued by a psychopathic killer who wants the money.",
-        trailer: "https://www.youtube.com/embed/38A__WT3-o0"
+        trailer: "https://www.youtube.com/embed/38A__WT3-o0",
+        language: "English",
     },
     {
         id: "103",
@@ -41,7 +44,8 @@ const movies = [
         summary:
             "A tribal woman and a righteous lawyer battle in court to unravel the mystery around the disappearance of her husband, who was picked up the police on a false case",
         rating: 8.8,
-        trailer: "https://www.youtube.com/embed/nnXpbTFrqXA"
+        trailer: "https://www.youtube.com/embed/nnXpbTFrqXA",
+        language: "Tamil",
     },
     {
         id: "104",
@@ -51,7 +55,8 @@ const movies = [
             "Marvel's The Avengers (classified under the name Marvel Avengers\n Assemble in the United Kingdom and Ireland), or simply The Avengers, is\n a 2012 American superhero film based on the Marvel Comics superhero team\n of the same name.",
         poster:
             "https://terrigen-cdn-dev.marvel.com/content/prod/1x/avengersendgame_lob_crd_05.jpg",
-        trailer: "https://www.youtube.com/embed/eOrNdBpGMv8"
+        trailer: "https://www.youtube.com/embed/eOrNdBpGMv8",
+        language: "Hindi",
     },
     {
         id: "105",
@@ -60,7 +65,8 @@ const movies = [
         rating: 8.6,
         summary:
             "When Earth becomes uninhabitable in the future, a farmer and ex-NASA\n pilot, Joseph Cooper, is tasked to pilot a spacecraft, along with a team\n of researchers, to find a new planet for humans.",
-        trailer: "https://www.youtube.com/embed/zSWdZVtXT7E"
+        trailer: "https://www.youtube.com/embed/zSWdZVtXT7E",
+        language: "Telugu",
     },
     {
         id: "106",
@@ -69,7 +75,8 @@ const movies = [
         rating: 8,
         summary:
             "In the kingdom of Mahishmati, Shivudu falls in love with a young warrior woman. While trying to woo her, he learns about the conflict-ridden past of his family and his true legacy.",
-        trailer: "https://www.youtube.com/embed/sOEg_YZQsTI"
+        trailer: "https://www.youtube.com/embed/sOEg_YZQsTI",
+        language: "Telugu",
     },
     {
         id: "107",
@@ -79,7 +86,8 @@ const movies = [
         rating: 8,
         summary:
             "Remy, a rat, aspires to become a renowned French chef. However, he fails to realise that people despise rodents and will never enjoy a meal cooked by him.",
-        trailer: "https://www.youtube.com/embed/NgsQ8mVkN8w"
+        trailer: "https://www.youtube.com/embed/NgsQ8mVkN8w",
+        language: "Tamil",
     }
 ];
 //REST Api endpoints
@@ -89,8 +97,17 @@ app.get('/', (req, res) => {
     res.send('Hello Everyone🥳🥳🥳')
 })
 
+//Task
+// /movies => all the movies
+// /movies?language=English => only English movies ✅
+// /movies?language=English&rating=8.1 = filter by language & rating  
+// /movies?rating=8 => filter by rating
+
 app.get('/movies', (req, res) => {
-    res.send(movies)
+    const { language } = req.query
+    console.log(req.query, language)
+    const movie = movies.filter((mv) => mv.language === language)
+    res.send(movie)
 })
 
 //get movies by id

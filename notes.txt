@@ -1,0 +1,6 @@
+CRUD
+
+C   - Create   - insert/add  ->  POST   -> insertOne/insertMany
+R   - Read     - get         ->  GET    -> findOne/find
+U   - Update   - update/edit ->  PUT    -> updateOne/updateMany
+D   - Delete   - delete      ->  DELETE -> deleteOne/deleteMany

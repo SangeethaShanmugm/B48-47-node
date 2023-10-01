@@ -1,7 +1,7 @@
 import express from "express"
 const router = express.Router()
 
-import { getAllMovies, getMovieById, deleteMovieById, addMovies } from "../helpers.js"
+import { getAllMovies, getMovieById, deleteMovieById, addMovies, updateMovies } from "../helpers.js"
 
 router.get('/', async (req, res) => {
     const { language, rating } = req.query
@@ -36,5 +36,14 @@ router.post('/', async (req, res) => {
     const result = await addMovies(newMovies)
     res.send(result)
 })
+
+//update movies
+router.put('/:id', async (req, res) => {
+    const { id } = req.params
+    const updatedMovies = req.body
+    const result = await updateMovies(updatedMovies, id)
+    res.send(result)
+})
+
 
 export const moviesRouter = router

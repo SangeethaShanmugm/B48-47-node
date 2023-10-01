@@ -4,3 +4,23 @@ C   - Create   - insert/add  ->  POST   -> insertOne/insertMany
 R   - Read     - get         ->  GET    -> findOne/find
 U   - Update   - update/edit ->  PUT    -> updateOne/updateMany
 D   - Delete   - delete      ->  DELETE -> deleteOne/deleteMany
+
+
+//Task
+// /movies => all the movies
+// /movies?language=English => only English movies ✅
+// /movies?language=English&rating=8.1 = filter by language & rating  
+// /movies?rating=8 => filter by rating
+
+
+ // let filteredMovies = movies //copy by reference => same address
+    // if (language) {
+    //     filteredMovies = filteredMovies.filter((mv) => mv.language === language)//different address
+    // }
+
+
+    //db.movies.findOne({id: "100"})
+    // const movie = movies.find((mv) => mv.id === id)
+
+
+     // movie ? res.send(movie) : res.status(401).send({ message: "No movies found" })

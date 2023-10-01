@@ -3,6 +3,7 @@
 import express from "express"
 import { MongoClient } from "mongodb"
 import * as dotenv from 'dotenv'
+import { moviesRouter } from "./routes/movies.js"
 dotenv.config()
 const app = express()
 const PORT = process.env.PORT
@@ -107,7 +108,7 @@ async function createConnection() {
     console.log("Mongodb is connected")
     return client
 }
-const client = await createConnection()
+export const client = await createConnection()
 
 //REST Api endpoints
 //req => what we send to server
@@ -116,53 +117,8 @@ app.get('/', (req, res) => {
     res.send('Hello Everyone🥳🥳🥳')
 })
 
-//Task
-// /movies => all the movies
-// /movies?language=English => only English movies ✅
-// /movies?language=English&rating=8.1 = filter by language & rating  
-// /movies?rating=8 => filter by rating
-
-app.get('/movies', async (req, res) => {
-    const { language, rating } = req.query
-    console.log(req.query, language)
-    // let filteredMovies = movies //copy by reference => same address
-    // if (language) {
-    //     filteredMovies = filteredMovies.filter((mv) => mv.language === language)//different address
-    // }
-    if (req.query.rating) {
-        req.query.rating = +req.query.rating
-    }
-    const movie = await client.db("b48-47-db").collection("movies").find(req.query).toArray()
-    res.send(movie);
-})
-
-//get movies by id
-
-app.get('/movies/:id', async (req, res) => {
-    const { id } = req.params
-    console.log(req.params, id)
-    //db.movies.findOne({id: "100"})
-    // const movie = movies.find((mv) => mv.id === id)
-    const movie = await client.db("b48-47-db").collection("movies").findOne({ id: id })
-    movie ? res.send(movie) : res.status(401).send({ message: "No movies found" })
-})
-
-//delete by id
-app.delete('/movies/:id', async (req, res) => {
-    const { id } = req.params
-    console.log(req.params, id)
-    const movie = await client.db("b48-47-db").collection("movies").deleteOne({ id: id })
-    movie ? res.send(movie) : res.status(401).send({ message: "No movies found" })
-})
-
-//add movies
-
-app.post('/movies', async (req, res) => {
-    const newMovies = req.body
-    console.log(newMovies)
-    const result = await client.db("b48-47-db").collection("movies").insertMany(newMovies)
-    // movie ? res.send(movie) : res.status(401).send({ message: "No movies found" })
-    res.send(result)
-})
+app.use("/movies", moviesRouter)
 
 app.listen(PORT, () => console.log("The server started on the port", PORT))
+
+

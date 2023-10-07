@@ -2,6 +2,7 @@ import express from "express"
 const router = express.Router()
 
 import { getAllMovies, getMovieById, deleteMovieById, addMovies, updateMovies } from "../helpers.js"
+import { auth } from "../middleware/auth.js"
 
 router.get('/', async (req, res) => {
     const { language, rating } = req.query

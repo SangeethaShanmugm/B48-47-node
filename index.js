@@ -3,7 +3,6 @@
 import express from "express"
 import { MongoClient } from "mongodb"
 import * as dotenv from 'dotenv'
-import bcrypt from "bcrypt";
 import { moviesRouter } from "./routes/movies.js"
 import { usersRouter } from "./routes/users.js"
 
@@ -43,11 +42,4 @@ app.use("/users", usersRouter)
 app.listen(PORT, () => console.log("The server started on the port", PORT))
 
 
-async function genPassword(password) {
-    const salt = await bcrypt.genSalt(10)//bcrypt.genSalt(no. of rounds)
-    console.log("salt", salt)
-    const hashedPassword = await bcrypt.hash(password, salt)
-    console.log("hashedPassword", hashedPassword);
-}
 
-console.log(genPassword("password@123"))

@@ -5,13 +5,14 @@ import { MongoClient } from "mongodb"
 import * as dotenv from 'dotenv'
 import { moviesRouter } from "./routes/movies.js"
 import { usersRouter } from "./routes/users.js"
-
+import cors from 'cors'
 
 dotenv.config()
 const app = express()
 const PORT = process.env.PORT
-app.use(express.json()) //Inbuilt middleware => to say express that the data is in json
 
+app.use(express.json()) //Inbuilt middleware => to say express that the data is in json
+app.use(cors())
 
 //mongodb connection
 
